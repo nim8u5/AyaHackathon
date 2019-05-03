@@ -27,14 +27,12 @@ class SGDRegressor:
 
 class FeatureTransformer:
   def __init__(self, env):
-    # observation_examples = np.array([env.observation_space.sample() for x in range(10000)])
-    # NOTE!! state samples are poor, b/c you get velocities --> infinity
+
     observation_examples = np.random.random((20000, 4))*2 - 1
     scaler = StandardScaler()
     scaler.fit(observation_examples)
 
-    # Used to converte a state to a featurizes represenation.
-    # We use RBF kernels with different variances to cover different parts of the space
+
     featurizer = FeatureUnion([
             ("rbf1", RBFSampler(gamma=0.05, n_components=1000)),
             ("rbf2", RBFSampler(gamma=1.0, n_components=1000)),
