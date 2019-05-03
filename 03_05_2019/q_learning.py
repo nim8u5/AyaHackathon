@@ -80,10 +80,9 @@ def play_one(env, model, eps, gamma):
   observation = env.reset()
   done = False
   totalreward = 0
-  iters = 0
-  while not done and iters < 2000:
-    # if we reach 2000, just quit, don't want this going forever
-    # the 200 limit seems a bit early
+
+  while not done:
+
     action = model.sample_action(observation, eps)
     prev_observation = observation
     observation, reward, done, info = env.step(action)
@@ -100,7 +99,7 @@ def play_one(env, model, eps, gamma):
 
     if reward == 1: # if we changed the reward to -200
       totalreward += reward
-    iters += 1
+
 
   return totalreward
 
